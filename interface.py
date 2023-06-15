@@ -1,7 +1,7 @@
-from abc import ABC, abstractclassmethod
+from abc import ABC, abstractmethod
 
 class Observador(ABC):
-    @abstractclassmethod
+
+    @abstractmethod
     def update_add(self):
         pass
-    
