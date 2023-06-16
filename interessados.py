@@ -1,16 +1,7 @@
-from interface import Observador
+from django.db import models
 
-class Interessados(Observador):
+class Pessoa(models.Model):
+    nome = models.CharField(max_length=100)
 
-    def __init__(self, nome, email):
-        self.nome = nome
-        self.email = email
-
-    def update_add(self):
-        print(f'Estou informando o {self.nome} no email {self.email} que foi aberta uma nova turma.')
-
-    def __str__(self):
-        return self.nome
-    
-    def __repr__(self) -> str:
-        return self.nome
+x = Pessoa(nome = 'esley')
+x.save()
