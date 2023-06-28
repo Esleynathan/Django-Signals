@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.signals import post_save
 
+from django.dispatch import receiver
+
 class Pessoa(models.Model):
     nome = models.CharField(max_length=50)
     email = models.EmailField()
@@ -15,6 +17,7 @@ class Historico(models.Model):
     telefone = models.CharField(max_length=20)
     pessoa = models.ForeignKey(Pessoa, on_delete=models.DO_NOTHING)
     
+@receiver(post_save, sender=Pessoa)
 def envia_sinal(sender, instance, created, **kwargs):
     x = Historico(nome=instance.nome,
                 email=instance.email,
@@ -23,5 +26,3 @@ def envia_sinal(sender, instance, created, **kwargs):
                 )
     x.save()
     print('Histórico cadastrado')
-
-post_save.connect(envia_sinal, sender=Pessoa)
