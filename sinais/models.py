@@ -10,6 +10,12 @@ class Pessoa(models.Model):
         return self.nome
     
 def envia_sinal(sender, instance, created, **kwargs):
-    print('Fui chamada')
+    if created:
+        print('Estou sendo criada.')
+    else:
+        print('Estou sendo alterada.')
+        print(instance.nome)
+        print(instance.email)        
+        print(instance.telefone)
 
 post_save.connect(envia_sinal, sender=Pessoa)
